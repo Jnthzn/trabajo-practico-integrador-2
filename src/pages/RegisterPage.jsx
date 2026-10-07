@@ -1,9 +1,10 @@
 import { useNavigate, Link } from "react-router";
 import { useForm } from "../hooks/useForm";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   const navigate = useNavigate();
   const { formState, handleInputChange } = useForm({
+    username: "",
     email: "",
     password: "",
   });
@@ -12,24 +13,23 @@ export const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify(formState),
       });
 
       if (response.ok) {
-        localStorage.setItem("isLogged", "true");
-        window.location.href = "/";
+        alert("Usuario creado correctamente. Ahora podés iniciar sesión.");
+        navigate("/login");
       } else {
         const errorData = await response.json().catch(() => ({}));
-        alert(errorData.message || "Credenciales inválidas");
+        alert(errorData.message || "Error al registrar usuario");
       }
     } catch (error) {
-      console.error("Error de conexión:", error);
+      console.error("Error:", error);
       alert("Error al conectar con el servidor");
     }
   };
@@ -41,8 +41,22 @@ export const LoginPage = () => {
         className="bg-white p-6 rounded-lg shadow-md w-full max-w-md border border-slate-200"
       >
         <h2 className="text-2xl font-bold mb-6 text-center text-slate-800">
-          Iniciar Sesión
+          Crear Cuenta
         </h2>
+
+        <div className="mb-4">
+          <label className="block text-slate-700 text-sm font-semibold mb-2">
+            Nombre de usuario
+          </label>
+          <input
+            type="text"
+            name="username"
+            value={formState.username}
+            onChange={handleInputChange}
+            required
+            className="w-full p-2 border border-slate-300 rounded focus:outline-none focus:border-slate-500"
+          />
+        </div>
 
         <div className="mb-4">
           <label className="block text-slate-700 text-sm font-semibold mb-2">
@@ -74,15 +88,15 @@ export const LoginPage = () => {
 
         <button
           type="submit"
-          className="w-full bg-slate-900 text-white py-2 rounded hover:bg-slate-800 transition font-semibold cursor-pointer"
+          className="w-full bg-slate-900 text-white py-2 rounded hover:bg-slate-800 transition font-semibold"
         >
-          Ingresar
+          Registrarse
         </button>
 
         <p className="mt-4 text-center text-sm text-slate-600">
-          ¿No tenés cuenta?{" "}
-          <Link to="/register" className="text-blue-600 hover:underline">
-            Registrate
+          ¿Ya tenés cuenta?{" "}
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Iniciá sesión
           </Link>
         </p>
       </form>
