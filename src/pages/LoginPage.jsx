@@ -22,7 +22,14 @@ export const LoginPage = () => {
       });
 
       if (response.ok) {
+        const data = await response.json().catch(() => ({}));
         localStorage.setItem("isLogged", "true");
+
+        const username = data.user?.username || data.username || "";
+        if (username) {
+          localStorage.setItem("username", username);
+        }
+
         window.location.href = "/";
       } else {
         const errorData = await response.json().catch(() => ({}));
