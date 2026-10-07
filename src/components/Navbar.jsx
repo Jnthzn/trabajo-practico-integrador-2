@@ -4,10 +4,19 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const isLogged = localStorage.getItem("isLogged") === "true";
 
-  const handleLogout = () => {
-    localStorage.removeItem("isLogged");
-    localStorage.removeItem("username");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:3000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Error al cerrar sesión en servidor:", error);
+    } finally {
+      localStorage.removeItem("isLogged");
+      localStorage.removeItem("username");
+      navigate("/login");
+    }
   };
 
   if (!isLogged) return null;
