@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 
 export const HomePage = () => {
@@ -7,26 +8,30 @@ export const HomePage = () => {
     error,
   } = useFetch("http://localhost:3000/api/articles");
 
+  if (isLoading)
+    return <p className="p-4 text-gray-500">Cargando publicaciones...</p>;
+  if (error) return <p className="p-4 text-red-500">Error: {error}</p>;
+
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl font-bold text-slate-800 mb-6">
-        Últimas Publicaciones
-      </h1>
-
-      {isLoading && <p className="text-gray-500">Cargando publicaciones...</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
-
+      <h1 className="text-3xl font-bold mb-6 text-slate-800">Publicaciones</h1>
       <div className="grid gap-4">
         {posts &&
           posts.map((post) => (
             <div
               key={post.id}
-              className="border border-slate-200 p-4 rounded-lg shadow-sm bg-white"
+              className="bg-white p-6 rounded-lg shadow-md border border-slate-200"
             >
-              <h2 className="text-xl font-semibold text-slate-900 mb-2">
+              <h2 className="text-xl font-bold text-slate-900 mb-2">
                 {post.title}
               </h2>
-              <p className="text-slate-600">{post.content}</p>
+              <p className="text-slate-600 line-clamp-2 mb-4">{post.content}</p>
+              <Link
+                to={`/articles/${post.id}`}
+                className="text-blue-600 hover:underline font-semibold"
+              >
+                Leer más →
+              </Link>
             </div>
           ))}
       </div>

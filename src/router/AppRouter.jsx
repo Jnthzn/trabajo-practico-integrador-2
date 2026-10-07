@@ -3,6 +3,7 @@ import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { CreateArticlePage } from "../pages/CreateArticlePage";
+import { ArticleDetailPage } from "../pages/ArticleDetailPage";
 import { Navbar } from "../components/Navbar";
 
 export const AppRouter = () => {
@@ -21,6 +22,10 @@ export const AppRouter = () => {
         <Route
           path="/create-article"
           element={isLogged ? <CreateArticlePage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/articles/:id"
+          element={isLogged ? <ArticleDetailPage /> : <Navigate to="/login" />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
