@@ -22,10 +22,22 @@ export const HomePage = () => {
               key={post.id}
               className="bg-white p-6 rounded-lg shadow-md border border-slate-200"
             >
+              <div className="flex justify-between items-center text-xs text-slate-500 mb-2">
+                <span>
+                  Por: {post.User?.username || post.user?.username || "Anónimo"}
+                </span>
+                <span>
+                  {post.createdAt
+                    ? new Date(post.createdAt).toLocaleDateString()
+                    : ""}
+                </span>
+              </div>
+
               <h2 className="text-xl font-bold text-slate-900 mb-2">
                 {post.title}
               </h2>
               <p className="text-slate-600 line-clamp-2 mb-4">{post.content}</p>
+
               <Link
                 to={`/articles/${post.id}`}
                 className="text-blue-600 hover:underline font-semibold"
