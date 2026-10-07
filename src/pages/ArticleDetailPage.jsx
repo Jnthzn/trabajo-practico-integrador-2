@@ -55,12 +55,21 @@ export const ArticleDetailPage = () => {
           {article.content}
         </p>
 
-        <button
-          onClick={handleDelete}
-          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition cursor-pointer font-semibold"
-        >
-          Eliminar Artículo
-        </button>
+        <div className="flex gap-4">
+          <Link
+            to={`/articles/edit/${id}`}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition font-semibold"
+          >
+            Editar Artículo
+          </Link>
+
+          <button
+            onClick={handleDelete}
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition cursor-pointer font-semibold"
+          >
+            Eliminar Artículo
+          </button>
+        </div>
       </div>
     </div>
   );

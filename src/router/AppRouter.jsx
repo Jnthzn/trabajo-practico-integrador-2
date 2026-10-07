@@ -4,6 +4,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { CreateArticlePage } from "../pages/CreateArticlePage";
 import { ArticleDetailPage } from "../pages/ArticleDetailPage";
+import { EditArticlePage } from "../pages/EditArticlePage";
 import { Navbar } from "../components/Navbar";
 
 export const AppRouter = () => {
@@ -26,6 +27,10 @@ export const AppRouter = () => {
         <Route
           path="/articles/:id"
           element={isLogged ? <ArticleDetailPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/articles/edit/:id"
+          element={isLogged ? <EditArticlePage /> : <Navigate to="/login" />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
