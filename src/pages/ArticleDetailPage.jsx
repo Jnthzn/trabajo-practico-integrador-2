@@ -39,6 +39,8 @@ export const ArticleDetailPage = () => {
   if (!article)
     return <p className="p-4 text-gray-500">Artículo no encontrado.</p>;
 
+  const articleDate = article.createdAt || article.created_at;
+
   return (
     <div className="max-w-3xl mx-auto p-4">
       <Link
@@ -48,6 +50,18 @@ export const ArticleDetailPage = () => {
         ← Volver al inicio
       </Link>
       <div className="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+        <div className="flex justify-between items-center text-sm text-slate-500 mb-4 border-b border-slate-100 pb-3">
+          <span>
+            Por:{" "}
+            <strong className="text-slate-700">
+              {article.User?.username || article.user?.username || "Anónimo"}
+            </strong>
+          </span>
+          <span>
+            {articleDate ? new Date(articleDate).toLocaleDateString() : ""}
+          </span>
+        </div>
+
         <h1 className="text-3xl font-bold text-slate-900 mb-4">
           {article.title}
         </h1>
