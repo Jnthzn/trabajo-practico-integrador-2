@@ -10,9 +10,8 @@ export const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Guardamos el estado de login en localStorage
     localStorage.setItem("isLogged", "true");
-    navigate("/");
+    window.location.href = "/";
   };
 
   return (

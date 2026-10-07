@@ -5,7 +5,7 @@ export const HomePage = () => {
     data: posts,
     isLoading,
     error,
-  } = useFetch("http://localhost:3000/api/posts");
+  } = useFetch("http://localhost:3000/api/articles");
 
   return (
     <div className="max-w-4xl mx-auto p-4">
